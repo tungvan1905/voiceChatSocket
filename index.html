@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello</h1>
+    <button>Left</button>
+    <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
+    <script>
+        const socket = io('http://localhost:5000');
+        console.log(socket)
+        socket.emit('join-room', {floor_id: 3, name: 'Haha-' + socket.id})
+        socket.on('leave-room', (data) => {
+            console.log(`${data.name} has left`)
+        })
+        socket.on('join-room', (data) => {
+            console.log(`${data.floor_id} has joined`)
+        })
+        document.querySelector('button').onclick = () => {
+            socket.emit('leave-room', {floor_id: 3});
+        }
+    </script>
+</body>
+</html>
